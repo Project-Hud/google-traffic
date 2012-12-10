@@ -1,3 +1,6 @@
+var apiLocation = '/getData'
+  , markers = []
+
 var initialize = function() {
   var origin = new google.maps.LatLng(51.69356215411849, -0.43700695037841797)
   var mapOptions =
@@ -22,14 +25,29 @@ var initialize = function() {
   }
 
   setInterval(function() {
-    map.panTo(origin);
+    map.panTo(origin)
   }, 1000)
 
-  setInterval(function() {
-    var trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(map);
-  }, 30000)
+  $.getJSON(apiLocation, function(data) {
+    var jams = data.jams
+      , alerts = data.alerts
+
+    $.each(jams, function(index, jam) {
+      var location = new google.maps.LatLng(jam.line[0].y, jam.line[0].x)
+      var marker = new google.maps.Marker(
+        { position: location
+        , map: map
+      })
+    })
+
+    $.each(alerts, function(index, alert) {
+      var location = new google.maps.LatLng(alert.location.y, alert.location.x)
+      var marker = new google.maps.Marker(
+        { position: location
+        , map: map
+      })
+    })
+  })
 }
 
-
-google.maps.event.addDomListener(window, 'load', initialize);
+google.maps.event.addDomListener(window, 'load', initialize)

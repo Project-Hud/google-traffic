@@ -24,6 +24,11 @@ var initialize = function() {
   setInterval(function() {
     map.panTo(origin);
   }, 1000)
+
+  setInterval(function() {
+    var trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
+  }, 30000)
 }
 
 

@@ -28,7 +28,7 @@ var initialize = function() {
     map.panTo(origin)
   }, 1000)
 
-  $.getJSON(apiLocation, function(data) {
+  /*$.getJSON(apiLocation, function(data) {
     var jams = data.jams
       , alerts = data.alerts
 
@@ -47,7 +47,7 @@ var initialize = function() {
         , map: map
       })
     })
-  })
+  })*/
 }
 
 google.maps.event.addDomListener(window, 'load', initialize)

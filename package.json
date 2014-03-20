@@ -8,6 +8,6 @@
   "dependencies": {
     "express": "3.0.3",
     "jade": "~1.1.5",
-    "hud-widget": "0.0.5"
+    "hud-widget": "0.0.7"
   }
 }

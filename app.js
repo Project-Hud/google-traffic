@@ -1,34 +1,15 @@
+var Widget = new require('hud-widget')
+  , widget = new Widget()
 
-/**
- * Module dependencies.
- */
+widget.get('/', function (req, res) {
+  res.render('index', { title: 'Google Traffic' })
+})
 
-var express = require('express')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path');
-
-var app = express();
-
-app.configure(function(){
-  app.set('port', process.env.PORT || 3100);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
-});
-
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
-
-app.get('/', routes.index);
-app.get('/getData', routes.getData);
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
+widget.get('/getData', function (req, res) {
+  widget.get('http://world.waze.com/rtserver/web/GeoRSS?format=JSON&types=traffic%2Calerts&mj=10&ma=10&jmds=120&jmu=1&left=-0.7548363198001116&right=-0.11917758095672432&bottom=51.375732784696794&top=52.01139152354018&bo=true&callback=?', function (res2) {
+    res2.pipe(res)
+  }).on('error', function(e) {
+    res.statusCode(500)
+    res.send('Got error: ' + e.message)
+  })
+})

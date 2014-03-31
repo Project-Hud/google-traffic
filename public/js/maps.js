@@ -3,14 +3,65 @@ var apiLocation = '/getData'
 
 var initialize = function() {
   var origin = new google.maps.LatLng(51.69356215411849, -0.43700695037841797)
-  var mapOptions =
-    { zoom: 10
+  , styles = [
+    {
+      'featureType': 'landscape.natural',
+      'stylers': [
+        { 'visibility': 'simplified' }
+      ]
+    },{
+      'featureType': 'road.highway',
+      'stylers': [
+        { 'visibility': 'simplified' }
+      ]
+    },{
+      'featureType': 'landscape.man_made',
+      'elementType': 'geometry.fill',
+      'stylers': [
+        { 'visibility': 'off' }
+      ]
+    },{
+      'featureType': 'poi',
+      'elementType': 'geometry.fill',
+      'stylers': [
+        { 'visibility': 'off' }
+      ]
+    },{
+      'featureType': 'road.local',
+      'stylers': [
+        { 'visibility': 'off' }
+      ]
+    },{
+      'featureType': 'road.arterial',
+      'stylers': [
+        { 'visibility': 'simplified' }
+      ]
+    },{
+      'featureType': 'transit',
+      'stylers': [
+        { 'color': '#9e9d9d' }
+      ]
+    },{ 'featureType': 'water' }
+     ,{
+      'featureType': 'poi',
+      'stylers': [
+        { 'visibility': 'off' }
+      ]
+    },{
+    }
+  ]
+
+  var styledMap = new google.maps.StyledMapType(styles, { name: 'Styled map' })
+    , mapOptions =
+    { zoom: 12
     , center: origin
     , mapTypeId: google.maps.MapTypeId.ROADMAP
     , disableDefaultUI: true
     }
+    , map = new google.maps.Map(document.getElementById('traffic'), mapOptions)
 
-  var map = new google.maps.Map(document.getElementById('traffic'), mapOptions)
+  map.mapTypes.set('styled', styledMap)
+  map.setMapTypeId('styled')
 
   var trafficLayer = new google.maps.TrafficLayer()
   trafficLayer.setMap(map)

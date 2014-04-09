@@ -1,5 +1,7 @@
+/* globals google, moment */
 var apiLocation = '/getData'
   , markers = []
+  , lastCheck = ''
 
 var initialize = function() {
   var origin = new google.maps.LatLng(51.69356215411849, -0.43700695037841797)
@@ -76,8 +78,13 @@ var initialize = function() {
   }
 
   setInterval(function() {
+    lastCheck = new moment()
     map.panTo(origin)
   }, 1000)
+
+  setInterval(function() {
+    $('.js-last-updated').text(moment(lastCheck).fromNow())
+  })
 
   /*$.getJSON(apiLocation, function(data) {
     var jams = data.jams

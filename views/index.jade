@@ -1,7 +1,12 @@
 extends layout
 
 block content
-  .traffic-title
-    h3
-      | Traffic Map
-  .js-traffic
+  .widget
+    .traffic
+      header.traffic__header
+        h3.traffic__title
+          | Traffic Map
+        .traffic__last-updated
+          span.traffic__last-updated__text.traffic__last-updated__title Last updated
+          span.traffic__last-updated__text.traffic__last-updated__value.js-last-updated we don't know
+       .traffic__map.js-traffic

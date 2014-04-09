@@ -83,7 +83,6 @@ var initialize = function() {
   }, 300000) // 5 mins
 
   setInterval(function() {
-    console.log('check', lastCheck.fromNow())
     $('.js-last-updated').text(lastCheck.fromNow())
   }, 1000)
 

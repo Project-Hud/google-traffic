@@ -58,7 +58,7 @@ var initialize = function() {
     , mapTypeId: google.maps.MapTypeId.ROADMAP
     , disableDefaultUI: true
     }
-    , map = new google.maps.Map(document.getElementById('traffic'), mapOptions)
+    , map = new google.maps.Map($('.js-traffic')[0], mapOptions)
 
   map.mapTypes.set('styled', styledMap)
   map.setMapTypeId('styled')
